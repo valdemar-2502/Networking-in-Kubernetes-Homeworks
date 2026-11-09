@@ -253,7 +253,7 @@ kubectl get ingressclass
 Поэтому после первого применения `/` отвечал nginx (frontend), а `/api` возвращал `404 Not Found`:
 запрос уходил в backend с путём `/api`, а такой страницы у multitool нет.
 
-![/api до исправления](img/task2-404.png)
+![/api до исправления](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/screenshots/11.png)
 
 Решение: Middleware Traefik `stripPrefix`, который убирает `/api` перед передачей запроса в backend,
 и аннотация `traefik.ingress.kubernetes.io/router.middlewares: default-strip-api@kubernetescrd` в Ingress.
@@ -265,7 +265,7 @@ kubectl get ingress
 kubectl get middleware
 ```
 
-![Ingress и Middleware](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/screenshots/08.png)
+![Ingress и Middleware](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/screenshots/12.png)
 
 ### Проверка доступа
 
