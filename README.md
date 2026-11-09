@@ -76,7 +76,7 @@
 ## Решение:
 ### Deployment из двух контейнеров (3 реплики)
 
-Манифест: [deployment-multi-container.yaml](deployment-multi-container.yaml)
+Манифест: [deployment-multi-container.yaml](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/deployment-multi-container.yaml)
 
 - `nginx` слушает порт 80;
 - `multitool` слушает порт 8080 (переменная `HTTP_PORT=8080`, иначе он конфликтовал бы с nginx за порт 80 в общем сетевом пространстве пода).
@@ -86,11 +86,11 @@ kubectl apply -f deployment-multi-container.yaml
 kubectl get pods -l app=multi-container-app
 ```
 
-![Поды и сервисы](img/task1-pods-svc.png)
+![Поды и сервисы](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/screenshots/01.png)
 
 ### Service типа ClusterIP
 
-Манифест: [service-clusterip.yaml](service-clusterip.yaml)
+Манифест: [service-clusterip.yaml](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/service-clusterip.yaml)
 
 Порт 9001 ведёт на nginx (80), порт 9002 ведёт на multitool (8080).
 
@@ -98,6 +98,7 @@ kubectl get pods -l app=multi-container-app
 kubectl apply -f service-clusterip.yaml
 kubectl get svc
 ```
+![kubernetes](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/screenshots/02.png)
 
 ### Проверка доступа изнутри кластера
 
@@ -107,11 +108,11 @@ curl svc-clusterip:9001
 curl svc-clusterip:9002
 ```
 
-![curl из test-pod](img/task1-clusterip.png)
+![curl из test-pod](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/screenshots/03.png)
 
 ### Service типа NodePort
 
-Манифест: [service-nodeport.yaml](service-nodeport.yaml)
+Манифест: [service-nodeport.yaml](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/service-nodeport.yaml)
 
 Nginx доступен снаружи кластера на порту узла `30080`.
 
@@ -120,7 +121,8 @@ kubectl apply -f service-nodeport.yaml
 curl <node-ip>:30080
 ```
 
-![Доступ по NodePort](img/task1-nodeport.png)
+![Доступ по NodePort](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/screenshots/04.png)
+![kubernetes](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/screenshots/05.png)
 
 ---
 
@@ -219,10 +221,10 @@ spec:
 ## Решение:
 
 ## Манифесты:
-- [deployment-frontend.yaml](deployment-frontend.yaml), [service-frontend.yaml](service-frontend.yaml): frontend на `nginx:alpine`;
-- [deployment-backend.yaml](deployment-backend.yaml), [service-backend.yaml](service-backend.yaml): backend на `wbitt/network-multitool:minimal`;
-- [ingress.yaml](ingress.yaml): маршрутизация `/` на frontend и `/api` на backend;
-- [middleware-strip-api.yaml](middleware-strip-api.yaml): убирает префикс `/api` (см. ниже).
+- [deployment-frontend.yaml](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/deployment-frontend.yaml), [service-frontend.yaml](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/service-frontend.yaml): frontend на `nginx:alpine`;
+- [deployment-backend.yaml](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/deployment-backend.yaml), [service-backend.yaml](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/service-backend.yaml): backend на `wbitt/network-multitool:minimal`;
+- [ingress.yaml](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/ingress.yaml): маршрутизация `/` на frontend и `/api` на backend;
+- [middleware-strip-api.yaml](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/middleware-strip-api.yaml): убирает префикс `/api`.
 
 ```
 kubectl apply -f deployment-frontend.yaml -f deployment-backend.yaml
@@ -230,7 +232,7 @@ kubectl apply -f service-frontend.yaml -f service-backend.yaml
 kubectl get pods,svc
 ```
 
-![Поды и сервисы](img/task2-pods-svc.png)
+![Поды и сервисы](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/screenshots/06.png)
 
 ### 2.1. Ingress-контроллер
 
@@ -243,7 +245,7 @@ kubectl get ingressclass
 В используемой версии MicroK8s аддон `ingress` устанавливает **Traefik**, а не nginx-ingress
 (`CONTROLLER: traefik.io/ingress-controller`, классы `public`, `nginx`, `traefik`).
 
-![Ingress-контроллер](img/task2-ingress-controller.png)
+![Ingress-контроллер](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/screenshots/07.png)
 
 ### 2.2. Ingress и особенность Traefik
 
@@ -263,7 +265,7 @@ kubectl get ingress
 kubectl get middleware
 ```
 
-![Ingress и Middleware](img/task2-ingress.png)
+![Ingress и Middleware](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/screenshots/08.png)
 
 ### Проверка доступа
 
@@ -274,7 +276,8 @@ curl localhost/api
 
 `/` возвращает страницу nginx (frontend), `/api` возвращает ответ multitool (backend).
 
-![curl / и /api](img/task2-curl.png)
+![curl / и /api](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/screenshots/09.png)
+![kubernetes](https://github.com/valdemar-2502/Networking-in-Kubernetes-Homeworks/blob/main/screenshots/10.png)
 
 ---
 
